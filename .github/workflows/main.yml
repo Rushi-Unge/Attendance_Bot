@@ -2,7 +2,7 @@ name: Daily Attendance Bot
 
 on:
   schedule:
-    - cron: '5 9 * * 1-6'  # Runs Mon–Sat at 2:35 PM IST
+    - cron: '5 9 * * 1-6'  # 9:05 AM UTC = 2:35 PM IST, Mon–Sat
   workflow_dispatch:
 
 jobs:
@@ -25,9 +25,5 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      # Optional: Debug which Chrome is available
-      - name: Debug Chrome path
-        run: which google-chrome || which chromium-browser
-
-      - name: Run attendance script
+      - name: Run attendance script using system Chrome
         run: node index.js

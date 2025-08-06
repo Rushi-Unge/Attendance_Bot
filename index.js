@@ -6,10 +6,11 @@ require("dotenv").config();
 // Detect Chrome path for GitHub Actions or local
 const getChromePath = () => {
   const paths = [
-    "/usr/bin/google-chrome", // GitHub Actions
-    "/usr/bin/chromium-browser", // Alt Linux path
-    "C:/Users/unger/.cache/puppeteer/chrome/win64-139.0.7258.66/chrome-win64/chrome.exe" // Windows (edit if needed)
-  ];
+  "/usr/bin/google-chrome", // GitHub Actions
+  "/usr/bin/chromium-browser", // fallback
+  "C:/Users/unger/.cache/puppeteer/..." // Windows local path
+];
+
   return paths.find(fs.existsSync);
 };
 
