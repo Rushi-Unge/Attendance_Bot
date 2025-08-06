@@ -13,7 +13,7 @@ const getChromePath = () => {
 
   return paths.find(fs.existsSync);
 };
-
+const executablePath = paths.find(fs.existsSync);
 (async () => {
   const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
   const TELEGRAM_USER_ID = process.env.TELEGRAM_USER_ID;
