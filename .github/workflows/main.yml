@@ -2,7 +2,7 @@ name: Daily Attendance Bot
 
 on:
   schedule:
-    - cron: '5 9 * * 1-6'  # Runs every day Monday–Saturday at 2:35 PM IST (which is 9:05 AM UTC)
+    - cron: '5 9 * * 1-6'  # Runs Mon–Sat at 2:35 PM IST
   workflow_dispatch:
 
 jobs:
@@ -25,11 +25,9 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Fix permissions for node_modules
-        run: chmod -R 755 node_modules
-
-      - name: Install Chrome for Puppeteer
-        run: npx --no-install puppeteer browsers install chrome
+      # Optional: Debug which Chrome is available
+      - name: Debug Chrome path
+        run: which google-chrome || which chromium-browser
 
       - name: Run attendance script
         run: node index.js
