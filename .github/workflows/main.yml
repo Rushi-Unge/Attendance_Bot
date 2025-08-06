@@ -1,29 +1,29 @@
-name: Daily Attendance Bot
+name: Run Attendance Bot
 
 on:
   schedule:
-    - cron: '5 9 * * 1-6'  # Runs every day Monday–Saturday at 2:35 PM IST (which is 9:05 AM UTC)
+    - cron: '5 9 * * 1-6'  # Runs at 9:05 AM UTC, which is 2:35 PM IST (adjust as needed)
   workflow_dispatch:
 
 jobs:
-  run-attendance:
+  run:
     runs-on: ubuntu-latest
-
-    env:
-      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-      TELEGRAM_USER_ID: ${{ secrets.TELEGRAM_USER_ID }}
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20'
+          node-version: 20
 
       - name: Install dependencies
         run: npm install
 
-      - name: Run attendance script
-        run: node index.js
+      - name: Run attendance bot
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_USER_ID: ${{ secrets.TELEGRAM_USER_ID }}
+        run: |
+          node index.js
