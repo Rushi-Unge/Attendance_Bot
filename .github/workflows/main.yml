@@ -2,11 +2,11 @@ name: Run Attendance Bot
 
 on:
   schedule:
-    - cron: '5 9 * * 1-6'  # Runs at 9:05 AM UTC, which is 2:35 PM IST (adjust as needed)
+    - cron: '5 9 * * 1-6'  # Run every Mon-Sat at 2:35PM IST
   workflow_dispatch:
 
 jobs:
-  run:
+  run-attendance-bot:
     runs-on: ubuntu-latest
 
     steps:
@@ -14,16 +14,18 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: '20'
 
       - name: Install dependencies
         run: npm install
+
+      - name: Install Chrome for Puppeteer
+        run: npx puppeteer browsers install chrome
 
       - name: Run attendance bot
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_USER_ID: ${{ secrets.TELEGRAM_USER_ID }}
-        run: |
-          node index.js
+        run: node index.js
